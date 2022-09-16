@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1663333545 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\cpheap.c
+	<stdio.h>
+	<stdlib.h>
+
+1663340790 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\main.c
+	<stdio.h>
+	<stdlib.h>
+	"types.c"
+
+1663333545 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
+	<stdio.h>
+	<stdlib.h>
+
+1663340782 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\tcp.c
+	<stdio.h>
+	<stdlib.h>
+	"types.c"
+
+1663333545 c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
+	<stdio.h>
+	<stdlib.h>
+
