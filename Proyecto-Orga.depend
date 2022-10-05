@@ -3,21 +3,45 @@
 	<stdio.h>
 	<stdlib.h>
 
-1663340790 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\main.c
+1664983041 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\main.c
 	<stdio.h>
 	<stdlib.h>
 	"types.c"
+	"define.h"
 
-1663333545 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
+1664977047 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
 	<stdio.h>
 	<stdlib.h>
+	"define.h"
 
-1663340782 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\tcp.c
+1664983889 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\tcp.c
 	<stdio.h>
 	<stdlib.h>
 	"types.c"
+	"define.h"
 
-1663333545 c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
+1664977047 c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
 	<stdio.h>
 	<stdlib.h>
+	"define.h"
+
+1664497494 c:\users\franco león\desktop\proyecto orga\proyecto-orga\define.h
+
+1664973705 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\metodos.c
+	<stdio.h>
+	<stdlib.h>
+	"types.c"
+	"define.h"
+
+1664976666 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\metodostcp.c
+	<stdio.h>
+	<stdlib.h>
+	"types.c"
+	"define.h"
+
+1664976897 c:\users\franco león\desktop\proyecto orga\proyecto-orga\metodostcp.c
+	<stdio.h>
+	<stdlib.h>
+	"types.c"
+	"define.h"
 

@@ -5,6 +5,7 @@
 		<Option title="Proyecto-Orga" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="Headers/" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/Proyecto-Orga" prefix_auto="1" extension_auto="1" />
@@ -34,6 +35,7 @@
 		<Unit filename="TCP.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="define.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

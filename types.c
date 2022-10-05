@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "define.h"
 
 typedef void * TClave;
 typedef void * TValor;
