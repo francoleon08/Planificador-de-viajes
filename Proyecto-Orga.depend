@@ -3,29 +3,28 @@
 	<stdio.h>
 	<stdlib.h>
 
-1664983041 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\main.c
+1666018757 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\main.c
 	<stdio.h>
 	<stdlib.h>
-	"types.c"
 	"define.h"
+	"colacp.h"
 
 1664977047 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
 
-1664983889 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\tcp.c
+1666015546 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\tcp.c
 	<stdio.h>
 	<stdlib.h>
-	"types.c"
-	"define.h"
+	"TCP.h"
 
 1664977047 c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
 
-1664497494 c:\users\franco león\desktop\proyecto orga\proyecto-orga\define.h
+1666017246 c:\users\franco león\desktop\proyecto orga\proyecto-orga\define.h
 
 1664973705 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\metodos.c
 	<stdio.h>
@@ -44,4 +43,25 @@
 	<stdlib.h>
 	"types.c"
 	"define.h"
+
+1666012142 c:\users\franco león\desktop\proyecto orga\proyecto-orga\tcp.h
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
+1666017494 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\colacp.c
+	<stdio.h>
+	<stdlib.h>
+	"colacp.h"
+
+1666012142 c:\users\franco león\desktop\proyecto orga\proyecto-orga\colacp.h
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
+1666027317 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+	"colacp.h"
 

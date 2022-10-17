@@ -1,32 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "types.c"
-#include "define.h"
-
-//METODOS TDA COLA CON PRIORIDAD
-TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada));
-
-int cp_insertar(TColaCP cola, TEntrada entr);
-
-TEntrada cp_eliminar(TColaCP cola);
-
-int cp_cantidad(TColaCP cola);
-
-void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada));
-
-//METODOS AUXILIARES
-TNodo getPadre(TColaCP cola, int pos);
-
-void crearTNodo(TNodo nodo, TNodo padre, TEntrada entr);
-
-void burbujeoInsertar(TColaCP cola, TNodo hijo, TNodo padre);
-
-void burbujeoEliminar(TColaCP cola, TNodo raiz);
-
-TNodo nodoMayorPrioridad(TColaCP cola, TNodo n1, TNodo n2);
-
-void removerTNodo(TColaCP cola, TNodo padre);
-
+#include "colacp.h"
 
 //METODOS TDA COLA CON PRIORIDAD
 TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada)) {
@@ -51,14 +25,20 @@ int cp_insertar(TColaCP cola, TEntrada entr) {
     if(entr != NULL) {
         insertar = malloc(sizeof(struct nodo));
         posInsertar = cola->cantidad_elementos + 1;
-        padre = getPadre(cola, posInsertar/2);
-        crearTNodo(insertar, padre, entr);
-        if(posInsertar % 2 == 0)
-            padre->hijo_izquierdo = insertar;
-        else
-            padre->hijo_derecho = insertar;
+        if(posInsertar == 1){
+            crearTNodo(insertar, NULL, entr);
+            cola->raiz = insertar;
+        }
+        else {
+            padre = getPadre(cola, posInsertar/2);
+            crearTNodo(insertar, padre, entr);
+            if(posInsertar % 2 == 0)
+                padre->hijo_izquierdo = insertar;
+            else
+                padre->hijo_derecho = insertar;
+            burbujeoInsertar(cola, insertar, padre);
+        }
         cola->cantidad_elementos++;
-        burbujeoInsertar(cola, insertar, padre);
         return TRUE;
     }
     else
@@ -74,9 +54,13 @@ TEntrada cp_eliminar(TColaCP cola) {
     if(cola->cantidad_elementos == 0)
         exit(ELE_NULO);
     toReturn = cola->raiz->entrada;
-    aux = getPadre(cola, (cola->cantidad_elementos)/2);
-    removerTNodo(cola, aux);
-    burbujeoEliminar(cola, cola->raiz);
+    if(cola->cantidad_elementos > 1){
+        aux = getPadre(cola, (cola->cantidad_elementos)/2);
+        removerTNodo(cola, aux);
+        burbujeoEliminar(cola, cola->raiz);
+    }
+    else
+        cola->cantidad_elementos--;
     return toReturn;
 }
 
@@ -87,7 +71,7 @@ int cp_cantidad(TColaCP cola) {
 }
 
 void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
-
+    //preguntar que hace la funcion eliminar
 }
 
 
@@ -116,11 +100,13 @@ void crearTNodo(TNodo nodo, TNodo padre, TEntrada entr) {
 
 void burbujeoInsertar(TColaCP cola, TNodo hijo, TNodo padre) {
     TEntrada aux;
-    if(cola->comparador(hijo->entrada, padre->entrada) == 1) {
-        aux = padre->entrada;
-        padre->entrada = hijo->entrada;
-        hijo->entrada = aux;
-        burbujeoInsertar(cola, padre, padre->padre);
+    if(padre != NULL){
+        if(cola->comparador(hijo->entrada, padre->entrada) == -1) {
+            aux = padre->entrada;
+            padre->entrada = hijo->entrada;
+            hijo->entrada = aux;
+            burbujeoInsertar(cola, padre, padre->padre);
+        }
     }
 }
 
@@ -128,7 +114,7 @@ void burbujeoEliminar(TColaCP cola, TNodo raiz) {
     TNodo auxTNodo;
     TEntrada auxEntrada;
     auxTNodo = nodoMayorPrioridad(cola, raiz->hijo_izquierdo, raiz->hijo_derecho);
-    if(auxTNodo != NULL && cola->comparador(auxTNodo->entrada, raiz->entrada) == 1){
+    if(auxTNodo != NULL && cola->comparador(auxTNodo->entrada, raiz->entrada) == -1){
         auxEntrada = raiz->entrada;
         raiz->entrada = auxTNodo->entrada;
         auxTNodo->entrada = auxEntrada;
@@ -139,7 +125,7 @@ void burbujeoEliminar(TColaCP cola, TNodo raiz) {
 TNodo nodoMayorPrioridad(TColaCP cola, TNodo n1, TNodo n2){
     if(n1 != NULL) {
         if( n2 != NULL){
-            if(cola->comparador(n1->entrada, n2->entrada) == 1)
+            if(cola->comparador(n1->entrada, n2->entrada) == -1)
                 return n1;
             else
                 return n2;
@@ -163,4 +149,12 @@ void removerTNodo(TColaCP cola, TNodo aux) {
         aux->hijo_derecho = NULL;
     }
     cola->cantidad_elementos--;
+}
+
+TEntrada crear_entrada(TClave c, TValor v) {
+    TEntrada toReturn;
+    toReturn = malloc(sizeof(struct entrada));
+    toReturn->clave = c;
+    toReturn->valor = v;
+    return toReturn;
 }

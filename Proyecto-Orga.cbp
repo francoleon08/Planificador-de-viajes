@@ -32,14 +32,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="TCP.c">
+		<Unit filename="colacp.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="colacp.h" />
 		<Unit filename="define.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="types.c">
+		<Unit filename="planificador.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />
