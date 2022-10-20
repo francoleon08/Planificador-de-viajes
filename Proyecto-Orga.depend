@@ -3,11 +3,11 @@
 	<stdio.h>
 	<stdlib.h>
 
-1666018757 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\main.c
+1666217903 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\main.c
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
-	"colacp.h"
+	"planificador.c"
 
 1664977047 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\types.c
 	<stdio.h>
@@ -49,19 +49,36 @@
 	<stdlib.h>
 	"define.h"
 
-1666017494 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\colacp.c
+1666217311 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\colacp.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
+	"define.h"
 	"colacp.h"
 
-1666012142 c:\users\franco león\desktop\proyecto orga\proyecto-orga\colacp.h
+1666217301 c:\users\franco león\desktop\proyecto orga\proyecto-orga\colacp.h
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
 
-1666027317 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
+1666221762 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+	"colacp.h"
+	"ciudad.h"
+
+1666218817 c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+	"colacp.h"
+	"ciudad.h"
+
+1666217682 c:\users\franco león\desktop\proyecto orga\proyecto-orga\ciudad.h
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
-	"colacp.h"
 

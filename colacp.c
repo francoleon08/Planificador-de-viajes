@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "define.h"
 #include "colacp.h"
 
 //METODOS TDA COLA CON PRIORIDAD
@@ -9,7 +11,7 @@ TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada)) {
     ASIGNO MEMORIA SUFICIENTE PARA CREAR LA COLA,
     LUEGO AL MOMEMNTO DE DESTRUIRLA DEBO HACER FREE
     */
-    cola = malloc(sizeof(struct cola_con_prioridad));
+    cola = (TColaCP) malloc(sizeof(struct cola_con_prioridad));
     cola->cantidad_elementos = 0;
     cola->raiz = NULL;
     cola->comparador = f;
@@ -17,13 +19,13 @@ TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada)) {
 }
 
 int cp_insertar(TColaCP cola, TEntrada entr) {
+    if(cola == NULL)
+        exit(CCP_NO_INI);
     int posInsertar;
     TNodo padre;
     TNodo insertar;
-    if(cola == NULL)
-        exit(CCP_NO_INI);
     if(entr != NULL) {
-        insertar = malloc(sizeof(struct nodo));
+        insertar = (TNodo) malloc(sizeof(struct nodo));
         posInsertar = cola->cantidad_elementos + 1;
         if(posInsertar == 1){
             crearTNodo(insertar, NULL, entr);
@@ -46,13 +48,13 @@ int cp_insertar(TColaCP cola, TEntrada entr) {
 }
 
 TEntrada cp_eliminar(TColaCP cola) {
-    TEntrada toReturn;
-    //aux es el padre del ultimo nodo
-    TNodo aux;
     if(cola == NULL)
         exit(CCP_NO_INI);
     if(cola->cantidad_elementos == 0)
         exit(ELE_NULO);
+    TEntrada toReturn;
+    //aux es el padre del ultimo nodo
+    TNodo aux;
     toReturn = cola->raiz->entrada;
     if(cola->cantidad_elementos > 1){
         aux = getPadre(cola, (cola->cantidad_elementos)/2);
@@ -71,15 +73,45 @@ int cp_cantidad(TColaCP cola) {
 }
 
 void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
-    //preguntar que hace la funcion eliminar
+    if(cola == NULL)
+        exit(CCP_NO_INI);
+    TNodo padre;
+    TNodo hijoI;
+    TNodo hijoD;
+    while (padre != cola->raiz){
+        padre=getPadre(cola, (cola->cantidad_elementos)/2);// padre es el padre del ultimo elemento ingresado.
+        if (padre->hijo_izquierdo != NULL){
+            hijoI= padre->hijo_izquierdo;
+            fEliminar(hijoI->entrada);
+            hijoI= NULL;
+            free(hijoI);
+            padre->hijo_izquierdo = NULL;
+            cola->cantidad_elementos--;
+        }
+        if (padre->hijo_derecho != NULL){
+            hijoD= padre->hijo_derecho;
+            fEliminar(hijoD->entrada);
+            hijoD= NULL;
+            free(hijoD);
+            padre->hijo_derecho = NULL;
+            cola->cantidad_elementos--;
+        }
+    }//al terminar nos quedaria la raiz con el hijo izquierdo y el derecho.
+    fEliminar(cola->raiz->entrada);
+    free(cola->raiz);
+    cola->raiz= NULL;
+    cola->cantidad_elementos = NULL;
+    cola->comparador = NULL;
+    free(cola);
+    cola= NULL;
 }
 
 
 //METODOS AUXILIARES
 TNodo getPadre(TColaCP cola, int pos) {
-    TNodo padre;
     if(cola == NULL)
         exit(CCP_NO_INI);
+    TNodo padre;
     if(pos == 1)
         return cola->raiz;
     else {
@@ -153,7 +185,7 @@ void removerTNodo(TColaCP cola, TNodo aux) {
 
 TEntrada crear_entrada(TClave c, TValor v) {
     TEntrada toReturn;
-    toReturn = malloc(sizeof(struct entrada));
+    toReturn = (TEntrada) malloc(sizeof(struct entrada));
     toReturn->clave = c;
     toReturn->valor = v;
     return toReturn;
