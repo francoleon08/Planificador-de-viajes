@@ -8,8 +8,9 @@
 void ingresar_datos(FILE * archivo, TColaCP datos);
 int ascendente(TEntrada x, TEntrada y);
 int descendente(TEntrada x, TEntrada y);
-void mostrarCiudades(datos);
+void mostrar_Ciudades(datos);
 void fEliminar(TEntrada ent);
+void camino_mas_corto(TColaCP datos);
 
 void main() {
     FILE * viajes;
@@ -35,7 +36,7 @@ void main() {
                 rewind(viajes);
                 ingresar_datos(viajes, colaAscendente);
                 printf("Opcion 1 seleccionada: ciudades en orden ascendente\n");
-                mostrarCiudades(colaAscendente);
+                mostrar_Ciudades(colaAscendente);
                 printf("//////////////////////////////////////////////\n");
                 break;
             }
@@ -43,12 +44,15 @@ void main() {
                 rewind(viajes);
                 ingresar_datos(viajes, colaDescendente);
                 printf("Opcion 2 seleccionada: ciudades en orden descendente\n");
-                mostrarCiudades(colaDescendente);
+                mostrar_Ciudades(colaDescendente);
                 printf("//////////////////////////////////////////////\n");
                 break;
             }
             case 3 : {
+                rewind(viajes);
+                ingresar_datos(viajes, colaAscendente);
                 printf("Opcion 3 seleccionada: reducir horas de manejo\n");
+                camino_mas_corto(colaAscendente);
                 printf("//////////////////////////////////////////////\n");
                 break;
             }
@@ -75,13 +79,6 @@ void ingresar_datos(FILE * archivo, TColaCP datos) {
     int y;
     int clave;
 
-    while(!feof(archivo)){
-    TCiudad ciudad;
-    int x;
-    int y;
-    int clave;
-    char *valor;
-
     while(!feof(archivo)) {
         valor = (char *) malloc(sizeof(char)*30);
         ciudad = (TCiudad) malloc(sizeof(struct ciudad));
@@ -91,11 +88,10 @@ void ingresar_datos(FILE * archivo, TColaCP datos) {
         ciudad->nombre = valor;
         ciudad->pos_x = x;
         ciudad->pos_y = y;
-        clave = fabs(x-1);
-        clave += fabs(y-1);
+        clave = fabs(x - 1);
+        clave += fabs(y - 1);
         cp_insertar(datos, crear_entrada(clave,ciudad));
     }
-}
 }
 
 int ascendente(TEntrada x, TEntrada y) {
@@ -122,7 +118,7 @@ int descendente(TEntrada x, TEntrada y) {
     return toReturn;
 }
 
-void mostrarCiudades(datos) {
+void mostrar_Ciudades(datos) {
     TEntrada aux;
     TCiudad ciudad;
     int cant;
@@ -131,8 +127,12 @@ void mostrarCiudades(datos) {
     for(i = 1; i<cant; i++){
         aux = cp_eliminar(datos);
         ciudad = aux->valor;
-        printf("%d. %s\n", i,ciudad->nombre);
+        printf("%d. %s, distancia: %d\n", i,ciudad->nombre, aux->clave);
     }
+}
+
+void camino_mas_corto(TColaCP datos) {
+
 }
 
 void fEliminar(TEntrada ent){
