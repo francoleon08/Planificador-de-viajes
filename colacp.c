@@ -78,32 +78,36 @@ void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
     TNodo padre;
     TNodo hijoI;
     TNodo hijoD;
-    while (padre != cola->raiz){
-        padre=getPadre(cola, (cola->cantidad_elementos)/2);// padre es el padre del ultimo elemento ingresado.
-        if (padre->hijo_izquierdo != NULL){
-            hijoI= padre->hijo_izquierdo;
-            fEliminar(hijoI->entrada);
-            hijoI= NULL;
-            free(hijoI);
-            padre->hijo_izquierdo = NULL;
-            cola->cantidad_elementos--;
-        }
-        if (padre->hijo_derecho != NULL){
-            hijoD= padre->hijo_derecho;
-            fEliminar(hijoD->entrada);
-            hijoD= NULL;
-            free(hijoD);
-            padre->hijo_derecho = NULL;
-            cola->cantidad_elementos--;
-        }
-    }//al terminar nos quedaria la raiz con el hijo izquierdo y el derecho.
-    fEliminar(cola->raiz->entrada);
-    free(cola->raiz);
-    cola->raiz= NULL;
+    if(cola->cantidad_elementos > 0){
+        while (padre != cola->raiz){
+            padre=getPadre(cola, (cola->cantidad_elementos)/2);// padre es el padre del ultimo elemento ingresado.
+            if (padre->hijo_izquierdo != NULL){
+                hijoI= padre->hijo_izquierdo;
+                fEliminar(hijoI->entrada);
+                hijoI= NULL;
+                free(hijoI);
+                padre->hijo_izquierdo = NULL;
+                cola->cantidad_elementos--;
+            }
+            if (padre->hijo_derecho != NULL){
+                hijoD= padre->hijo_derecho;
+                fEliminar(hijoD->entrada);
+                hijoD= NULL;
+                free(hijoD);
+                padre->hijo_derecho = NULL;
+                cola->cantidad_elementos--;
+            }
+
+        }//al terminar nos quedaria la raiz con el hijo izquierdo y el derecho.
+        fEliminar(cola->raiz->entrada);
+        free(cola->raiz);
+        cola->raiz= NULL;
+    }
     cola->cantidad_elementos = NULL;
     cola->comparador = NULL;
     free(cola);
     cola= NULL;
+
 }
 
 

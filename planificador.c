@@ -12,7 +12,7 @@ void mostrar_Ciudades(datos);
 void fEliminar(TEntrada ent);
 void camino_mas_corto(TColaCP datos);
 
-void main() {
+int main() {
     FILE * viajes;
     TColaCP colaAscendente;
     TColaCP colaDescendente;
@@ -69,7 +69,8 @@ void main() {
             }
         }
     }
-    return 0;
+
+    return EXITO;
 }
 
 void ingresar_datos(FILE * archivo, TColaCP datos) {
@@ -132,12 +133,54 @@ void mostrar_Ciudades(datos) {
 }
 
 void camino_mas_corto(TColaCP datos) {
+    TColaCP colaAux;
+    TCiudad ciudadAux;
+    TEntrada entradaAux;
+    int cord_x;
+    int cord_y;
+    int clave;
+    int control;
+    int i;
+    int totalDist;
 
+    colaAux = crear_cola_cp(ascendente);
+    entradaAux = cp_eliminar(datos);
+    ciudadAux = entradaAux->valor;
+    cord_x = ciudadAux->pos_x,
+    cord_y = ciudadAux->pos_y;
+    control = datos->cantidad_elementos+1;
+    totalDist = entradaAux->clave;
+    i = 1;
+
+    printf("%i. %s\n", i,ciudadAux->nombre);
+
+    while(i < control){
+        while(datos->cantidad_elementos > 0){
+            entradaAux = cp_eliminar(datos);
+            ciudadAux = entradaAux->valor;
+            clave = fabs(ciudadAux->pos_x - cord_x);
+            clave += fabs(ciudadAux->pos_y - cord_y);
+            cp_insertar(colaAux, crear_entrada(clave, ciudadAux));
+        }
+        entradaAux = cp_eliminar(colaAux);
+        ciudadAux = entradaAux->valor;
+        cord_x = ciudadAux->pos_x,
+        cord_y = ciudadAux->pos_y;
+        totalDist += entradaAux->clave;
+        printf("%i. %s\n", i,ciudadAux->nombre);
+
+        while(colaAux->cantidad_elementos > 0){
+            cp_insertar(datos, cp_eliminar(colaAux));
+        }
+        i++;
+    }
+    printf("Total recorrido %i\n", totalDist);
+    cp_destruir(colaAux, fEliminar);
 }
 
 void fEliminar(TEntrada ent){
     ent->clave= NULL;
     ent->valor= NULL;
-    ent= NULL;
     free(ent);
+    ent= NULL;
 }
