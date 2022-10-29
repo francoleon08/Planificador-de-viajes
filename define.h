@@ -7,5 +7,7 @@
 #define CCP_NO_INI 2
 #define POS_NULO NULL
 #define ELE_NULO NULL
+#define LST_NO_INI 3
+#define LST_VAC 4
 
 #endif
