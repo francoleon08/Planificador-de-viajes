@@ -32,6 +32,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Lista.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lista.h" />
 		<Unit filename="ciudad.h" />
 		<Unit filename="colacp.c">
 			<Option compilerVar="CC" />

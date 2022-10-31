@@ -61,13 +61,15 @@
 	<stdlib.h>
 	"define.h"
 
-1667073679 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
+1667226460 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<math.h>
 	"define.h"
 	"colacp.h"
 	"ciudad.h"
+	"Lista.h"
 
 1666218817 c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
 	<stdio.h>
@@ -77,16 +79,16 @@
 	"colacp.h"
 	"ciudad.h"
 
-1666217682 c:\users\franco león\desktop\proyecto orga\proyecto-orga\ciudad.h
+1667083673 c:\users\franco león\desktop\proyecto orga\proyecto-orga\ciudad.h
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
 
-1667076160 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\lista.c
+1667082822 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\lista.c
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
 	"lista.h"
 
-1667076211 c:\users\franco león\desktop\proyecto orga\proyecto-orga\lista.h
+1667082827 c:\users\franco león\desktop\proyecto orga\proyecto-orga\lista.h
 

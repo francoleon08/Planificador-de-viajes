@@ -1,24 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "define.h"
 #include "colacp.h"
 #include "ciudad.h"
+#include "Lista.h"
 
-void ingresar_datos(FILE * archivo, TColaCP datos);
+void ingresar_datos_lista(FILE * archivo, tLista * list);
+void cargar_datos_colaCP(tLista list, TColaCP datos);
+float calcular_distancia(float x, float y);
 int ascendente(TEntrada x, TEntrada y);
 int descendente(TEntrada x, TEntrada y);
-void mostrar_Ciudades(datos);
+void mostrar_Ciudades(TColaCP datos);
 void fEliminar(TEntrada ent);
 void camino_mas_corto(TColaCP datos);
 
-int main() {
+int main(int argc, char * argv[]) {
     FILE * viajes;
     TColaCP colaAscendente;
     TColaCP colaDescendente;
+    tLista listaDatos;
     int control;
 
+    /*
+    viajes = fopen(argv[1], "r");
+    if(viajes == NULL) {
+        printf("Error en la carga de datos");
+        exit(FALSE);
+    } */
+
+    crearListaVacia(&listaDatos);
     viajes = fopen("viajes.txt", "r");
+    ingresar_datos_lista(viajes, &listaDatos);
+    fclose(viajes);
 
     colaAscendente = crear_cola_cp(ascendente);
     colaDescendente = crear_cola_cp(descendente);
@@ -33,24 +48,21 @@ int main() {
         scanf("%i", &control);
         switch (control) {
             case 1 : {
-                rewind(viajes);
-                ingresar_datos(viajes, colaAscendente);
+                cargar_datos_colaCP(listaDatos, colaAscendente);
                 printf("Opcion 1 seleccionada: ciudades en orden ascendente\n");
                 mostrar_Ciudades(colaAscendente);
                 printf("//////////////////////////////////////////////\n");
                 break;
             }
             case 2 : {
-                rewind(viajes);
-                ingresar_datos(viajes, colaDescendente);
+                cargar_datos_colaCP(listaDatos, colaDescendente);
                 printf("Opcion 2 seleccionada: ciudades en orden descendente\n");
                 mostrar_Ciudades(colaDescendente);
                 printf("//////////////////////////////////////////////\n");
                 break;
             }
             case 3 : {
-                rewind(viajes);
-                ingresar_datos(viajes, colaAscendente);
+                cargar_datos_colaCP(listaDatos, colaAscendente);
                 printf("Opcion 3 seleccionada: reducir horas de manejo\n");
                 camino_mas_corto(colaAscendente);
                 printf("//////////////////////////////////////////////\n");
@@ -58,9 +70,9 @@ int main() {
             }
             case 4 : {
                 printf("Opcion 4 seleccionada: salir\n");
-                fclose(viajes);
                 cp_destruir(colaAscendente, fEliminar);
                 cp_destruir(colaDescendente, fEliminar);
+                vaciarLista(listaDatos);
                 printf("GRACIAS POR UTILIZAR PLANIFICADOR.");
                 break;
             }
@@ -69,30 +81,51 @@ int main() {
             }
         }
     }
-
     return EXITO;
 }
 
-void ingresar_datos(FILE * archivo, TColaCP datos) {
+void ingresar_datos_lista(FILE * archivo, tLista * list){
     char * valor;
     TCiudad ciudad;
-    int x;
-    int y;
-    int clave;
+    tPosicion aux;
+    float x;
+    float y;
 
+    aux = *list;
     while(!feof(archivo)) {
         valor = (char *) malloc(sizeof(char)*30);
         ciudad = (TCiudad) malloc(sizeof(struct ciudad));
         fscanf(archivo, "%[^;];", valor);
-        fscanf(archivo, "%d;", &x);
-        fscanf(archivo, "%d\n", &y);
+        fscanf(archivo, "%f;", &x);
+        fscanf(archivo, "%f\n", &y);
         ciudad->nombre = valor;
         ciudad->pos_x = x;
         ciudad->pos_y = y;
-        clave = fabs(x - 1);
-        clave += fabs(y - 1);
-        cp_insertar(datos, crear_entrada(clave,ciudad));
+        insertarElemento(ciudad, aux, list);
     }
+}
+
+void cargar_datos_colaCP(tLista list, TColaCP datos) {
+    TCiudad ciudad;
+    TEntrada entrada;
+    tPosicion aux;
+    float clave;
+
+    aux = list;
+    while (siguiente(aux, list) != NULL) {
+        ciudad = (TCiudad) recuperar(aux, list);
+        clave = calcular_distancia(ciudad->pos_x, ciudad->pos_y);
+        entrada = crear_entrada((int) clave, ciudad); //no puedo pasar un float :(
+        cp_insertar(datos, entrada);
+        aux = siguiente(aux, list);
+    }
+}
+
+float calcular_distancia(float x, float y) {
+    float dist;
+    dist = fabs(x - 1);
+    dist += fabs(y - 1);
+    return dist;
 }
 
 int ascendente(TEntrada x, TEntrada y) {
@@ -119,7 +152,7 @@ int descendente(TEntrada x, TEntrada y) {
     return toReturn;
 }
 
-void mostrar_Ciudades(datos) {
+void mostrar_Ciudades(TColaCP datos) {
     TEntrada aux;
     TCiudad ciudad;
     int cant;
@@ -128,7 +161,7 @@ void mostrar_Ciudades(datos) {
     for(i = 1; i<cant; i++){
         aux = cp_eliminar(datos);
         ciudad = aux->valor;
-        printf("%d. %s, distancia: %d\n", i,ciudad->nombre, aux->clave);
+        printf("%i. %s\n", i,ciudad->nombre);
     }
 }
 
@@ -149,8 +182,9 @@ void camino_mas_corto(TColaCP datos) {
     cord_x = ciudadAux->pos_x,
     cord_y = ciudadAux->pos_y;
     control = datos->cantidad_elementos+1;
-    totalDist = entradaAux->clave;
     i = 1;
+    totalDist = 0;
+    totalDist += (unsigned long long) entradaAux->clave;
 
     printf("%i. %s\n", i,ciudadAux->nombre);
 
@@ -166,7 +200,7 @@ void camino_mas_corto(TColaCP datos) {
         ciudadAux = entradaAux->valor;
         cord_x = ciudadAux->pos_x,
         cord_y = ciudadAux->pos_y;
-        totalDist += entradaAux->clave;
+        totalDist += (unsigned long long) entradaAux->clave;
         printf("%i. %s\n", i,ciudadAux->nombre);
 
         while(colaAux->cantidad_elementos > 0){

@@ -8,7 +8,7 @@ typedef struct tCelda
 typedef tLista tPosicion;
 
 void crearListaVacia(tLista *L);
-void insertarElemento(tElem *E, tPosicion P, tLista L);
+void insertarElemento(tElem * E, tPosicion P, tLista * L);
 void eliminarElemento(tPosicion P, tLista L);
 int esListaVacia(tLista L);
 tPosicion primera(tLista L);
