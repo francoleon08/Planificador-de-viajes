@@ -61,13 +61,15 @@
 	<stdlib.h>
 	"define.h"
 
-1667073679 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
+1667226460 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<math.h>
 	"define.h"
 	"colacp.h"
 	"ciudad.h"
+	"Lista.h"
 
 1666218817 c:\users\franco león\desktop\proyecto orga\proyecto-orga\planificador.c
 	<stdio.h>
@@ -77,34 +79,52 @@
 	"colacp.h"
 	"ciudad.h"
 
-1666217682 c:\users\franco león\desktop\proyecto orga\proyecto-orga\ciudad.h
+1667083673 c:\users\franco león\desktop\proyecto orga\proyecto-orga\ciudad.h
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
 
-1667076195 source:c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\colacp.c
+1667082822 source:c:\users\franco león\desktop\proyecto orga\proyecto-orga\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+	"lista.h"
+
+1667082827 c:\users\franco león\desktop\proyecto orga\proyecto-orga\lista.h
+
+1666312752 source:c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\colacp.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"define.h"
 	"colacp.h"
 
-1667076195 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\define.h
+1667075844 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\define.h
 
-1667076195 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\colacp.h
+1666229272 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\colacp.h
 	<stdio.h>
 	<stdlib.h>
 	"define.h"
 
-1667076195 source:c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\planificador.c
+1667082822 source:c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+	"lista.h"
+
+1667082827 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\lista.h
+
+1667227222 source:c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\planificador.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<math.h>
 	"define.h"
 	"colacp.h"
 	"ciudad.h"
+	"Lista.h"
 
-1667076195 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\ciudad.h
+1667083673 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\ciudad.h
 	<stdio.h>
 	<stdlib.h>
 	"define.h"

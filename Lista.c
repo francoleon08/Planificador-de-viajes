@@ -11,7 +11,7 @@ void crearListaVacia(tLista *L)
         (*L)->elemento  = NULL;
 }
 
-void insertarElemento(tElem *E, tPosicion P, tLista L)
+void insertarElemento(tElem * E, tPosicion P, tLista * L)
 {
         tPosicion aux;
         aux = (tPosicion)malloc(sizeof(struct tCelda));
@@ -29,7 +29,6 @@ void eliminarElemento(tPosicion P, tLista L)
         free(aux);
 }
 int esListaVacia(tLista L){
-    //if (L = POS_NULA)...exit
          if (L == NULL ) exit(LST_NO_INI);
         else
          return (L->siguiente==NULL);
@@ -83,7 +82,6 @@ tElem* recuperar(tPosicion P, tLista L){
     return P->siguiente->elemento;
 }
 void vaciarLista(tLista L){
-    //int retorno;
     tPosicion aux=L,celda;
     tElem *elem;
     if (!(aux->siguiente == NULL)){
@@ -91,12 +89,13 @@ void vaciarLista(tLista L){
         aux->siguiente=NULL;
         aux=celda;
         while(aux->siguiente != NULL ){
-            //celda= aux;
+            celda= aux;
             aux=aux->siguiente;
             elem  = celda->elemento;
             free(elem);
             free(celda);
     }
     }
-
+    free(L);
+    L = NULL;
   }
