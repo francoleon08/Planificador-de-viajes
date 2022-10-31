@@ -82,3 +82,30 @@
 	<stdlib.h>
 	"define.h"
 
+1667076195 source:c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\colacp.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+	"colacp.h"
+
+1667076195 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\define.h
+
+1667076195 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\colacp.h
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
+1667076195 source:c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\planificador.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"define.h"
+	"colacp.h"
+	"ciudad.h"
+
+1667076195 c:\users\agus2\onedrive\escritorio\orga\codeblocks\proyecto\proyecto-orga\ciudad.h
+	<stdio.h>
+	<stdlib.h>
+	"define.h"
+
