@@ -25,26 +25,7 @@ typedef struct cola_con_prioridad {
 
 //METODOS TDA COLA CON PRIORIDAD
 TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada));
-
 int cp_insertar(TColaCP cola, TEntrada entr);
-
 TEntrada cp_eliminar(TColaCP cola);
-
 int cp_cantidad(TColaCP cola);
-
 void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada));
-
-//METODOS AUXILIARES
-TNodo getPadre(TColaCP cola, int pos);
-
-void crearTNodo(TNodo nodo, TNodo padre, TEntrada entr);
-
-void burbujeoInsertar(TColaCP cola, TNodo hijo, TNodo padre);
-
-void burbujeoEliminar(TColaCP cola, TNodo raiz);
-
-TNodo nodoMayorPrioridad(TColaCP cola, TNodo n1, TNodo n2);
-
-void removerTNodo(TColaCP cola, TNodo padre);
-
-TEntrada crear_entrada(TClave c, TValor v);

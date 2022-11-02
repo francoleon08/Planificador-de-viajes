@@ -1,3 +1,12 @@
+/*
+Archivo       : Lista.h
+Descripción   : .h de la implementaciín del TDA Lista con celda de encabezamiento y concepto de posición
+                indirecta.
+Actualizaci�n : 15-09-2022 M. Escudero
+Autor		  :  L. De Matteis - M. Escudero
+Materia       : Organización de Computadoras
+ */
+
 typedef int tElem;
 typedef struct tCelda
 {

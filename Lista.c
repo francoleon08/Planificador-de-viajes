@@ -33,9 +33,11 @@ int esListaVacia(tLista L){
         else
          return (L->siguiente==NULL);
 }
+
 tPosicion primera(tLista L){
         return L;
 }
+
 tPosicion fin(tLista L){
        tPosicion aux;
         if (L == NULL || L->siguiente == NULL) exit(LST_NO_INI);
@@ -60,6 +62,7 @@ tPosicion ultima(tLista L){
     return aux;
 
 }
+
 tPosicion anterior(tPosicion P, tLista L){
    tPosicion aux;
    int encontre = FALSE;
@@ -81,6 +84,7 @@ tPosicion siguiente(tPosicion P, tLista L){
 tElem* recuperar(tPosicion P, tLista L){
     return P->siguiente->elemento;
 }
+
 void vaciarLista(tLista L){
     tPosicion aux=L,celda;
     tElem *elem;

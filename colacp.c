@@ -4,6 +4,14 @@
 #include "define.h"
 #include "colacp.h"
 
+//METODOS AUXILIARES
+TNodo getPadre(TColaCP cola, int pos);
+void crearTNodo(TNodo nodo, TNodo padre, TEntrada entr);
+void burbujeoInsertar(TColaCP cola, TNodo hijo, TNodo padre);
+void burbujeoEliminar(TColaCP cola, TNodo raiz);
+TNodo nodoMayorPrioridad(TColaCP cola, TNodo n1, TNodo n2);
+void removerTNodo(TColaCP cola, TNodo padre);
+
 //METODOS TDA COLA CON PRIORIDAD
 TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada)) {
     TColaCP cola;
@@ -51,7 +59,7 @@ TEntrada cp_eliminar(TColaCP cola) {
     if(cola == NULL)
         exit(CCP_NO_INI);
     if(cola->cantidad_elementos == 0)
-        exit(ELE_NULO);
+        exit(CCP_VACIA);
     TEntrada toReturn;
     //aux es el padre del ultimo nodo
     TNodo aux;
@@ -80,7 +88,7 @@ void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
     TNodo hijoD;
     if(cola->cantidad_elementos > 0){
         while (padre != cola->raiz){
-            padre=getPadre(cola, (cola->cantidad_elementos)/2);// padre es el padre del ultimo elemento ingresado.
+            padre=getPadre(cola, (cola->cantidad_elementos)/2);
             if (padre->hijo_izquierdo != NULL){
                 hijoI= padre->hijo_izquierdo;
                 fEliminar(hijoI->entrada);
@@ -98,20 +106,17 @@ void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
                 cola->cantidad_elementos--;
             }
 
-        }//al terminar nos quedaria la raiz con el hijo izquierdo y el derecho.
+        }
         fEliminar(cola->raiz->entrada);
         free(cola->raiz);
         cola->raiz= NULL;
     }
-    cola->cantidad_elementos = NULL;
     cola->comparador = NULL;
     free(cola);
     cola= NULL;
 
 }
 
-
-//METODOS AUXILIARES
 TNodo getPadre(TColaCP cola, int pos) {
     if(cola == NULL)
         exit(CCP_NO_INI);
@@ -185,12 +190,4 @@ void removerTNodo(TColaCP cola, TNodo aux) {
         aux->hijo_derecho = NULL;
     }
     cola->cantidad_elementos--;
-}
-
-TEntrada crear_entrada(TClave c, TValor v) {
-    TEntrada toReturn;
-    toReturn = (TEntrada) malloc(sizeof(struct entrada));
-    toReturn->clave = c;
-    toReturn->valor = v;
-    return toReturn;
 }
