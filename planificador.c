@@ -87,7 +87,7 @@ int main(int argc, char * argv[]) {
 
 /**
     * @brief Ingresa datos de un archivo a una lista.
-    * @param archivo archivo corespondiente a las ciudades.
+    * @param archivo archivo correspondiente a las ciudades.
     * @param list lista.
  */
 void ingresar_datos_lista(FILE * archivo, tLista * list){
@@ -132,7 +132,7 @@ void cargar_datos_colaCP(tLista list, TColaCP datos) {
 }
 
 /**
-    * @brief Calcula la suma de el valor absoluto entre las coordenadas.
+    * @brief Calcula la distancia entre las coordenadas recibidas.
     * @param x coordenada destino.
     * @param y coordenada destino.
     * @param cord_x origen.
