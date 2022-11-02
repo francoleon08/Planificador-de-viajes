@@ -131,7 +131,6 @@ void cargar_datos_colaCP(tLista list, TColaCP datos) {
     }
 }
 
-<<<<<<< HEAD
 /**
     * @brief Calcula la suma de el valor absoluto entre las coordenadas.
     * @param x coordenada destino.
@@ -140,14 +139,13 @@ void cargar_datos_colaCP(tLista list, TColaCP datos) {
     * @param cord_y origen.
     * @return float resultado.
 */
-=======
->>>>>>> 0b4d7e2442929c67d3ec2c6ee94d2dd8b7e4b5d1
 float calcular_distancia(float x, float y, float cord_x, float cord_y) {
     float dist;
     dist = fabs(x - cord_x);
     dist += fabs(y - cord_y);
     return dist;
 }
+
 /**
     *@brief Funcion de comparacion de claves de entradas.
     *@param x entrada.
@@ -266,7 +264,6 @@ void fEliminar(TEntrada ent){
     ent= NULL;
 }
 
-<<<<<<< HEAD
 /**
     *@brief crea una entrada clave/valor, con respecto a las coordenadas origen.
     *@param ciudad Ciudad y Coordenadas.
@@ -274,8 +271,6 @@ void fEliminar(TEntrada ent){
     *@param cord_y coordenada origen.
     *@return TEntrada entrada generada.
 */
-=======
->>>>>>> 0b4d7e2442929c67d3ec2c6ee94d2dd8b7e4b5d1
 TEntrada crear_entrada(TCiudad ciudad, float cord_x, float cord_y) {
     TEntrada toReturn;
     float * dist;
