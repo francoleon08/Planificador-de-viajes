@@ -9,12 +9,13 @@
 
 void ingresar_datos_lista(FILE * archivo, tLista * list);
 void cargar_datos_colaCP(tLista list, TColaCP datos);
-float calcular_distancia(float x, float y);
+float calcular_distancia(float x, float y, float cord_x, float cord_y);
 int ascendente(TEntrada x, TEntrada y);
 int descendente(TEntrada x, TEntrada y);
 void mostrar_Ciudades(TColaCP datos);
 void fEliminar(TEntrada ent);
 void camino_mas_corto(TColaCP datos);
+TEntrada crear_entrada(TCiudad ciudad, float cord_x, float cord_y);
 
 int main(int argc, char * argv[]) {
     FILE * viajes;
@@ -22,16 +23,16 @@ int main(int argc, char * argv[]) {
     TColaCP colaDescendente;
     tLista listaDatos;
     int control;
-
     /*
     viajes = fopen(argv[1], "r");
     if(viajes == NULL) {
         printf("Error en la carga de datos");
         exit(FALSE);
-    } */
+    }
+    */
+    viajes = fopen("viajes.txt", "r");
 
     crearListaVacia(&listaDatos);
-    viajes = fopen("viajes.txt", "r");
     ingresar_datos_lista(viajes, &listaDatos);
     fclose(viajes);
 
@@ -84,13 +85,18 @@ int main(int argc, char * argv[]) {
     return EXITO;
 }
 
+/**
+    * @brief Ingresa datos de un archivo a una lista.
+    * @param archivo archivo corespondiente a las ciudades.
+    * @param list lista.
+ */
 void ingresar_datos_lista(FILE * archivo, tLista * list){
     char * valor;
     TCiudad ciudad;
+    tElem * insert;
     tPosicion aux;
     float x;
     float y;
-
     aux = *list;
     while(!feof(archivo)) {
         valor = (char *) malloc(sizeof(char)*30);
@@ -101,38 +107,57 @@ void ingresar_datos_lista(FILE * archivo, tLista * list){
         ciudad->nombre = valor;
         ciudad->pos_x = x;
         ciudad->pos_y = y;
-        insertarElemento(ciudad, aux, list);
+        insert = (tElem *) ciudad;
+        insertarElemento(insert, aux, list);
     }
 }
 
+/**
+    * @brief Cargar datos de una lista en una cola con prioridad.
+    * @param list Lista.
+    * @param datos Cola con prioridad.
+ */
 void cargar_datos_colaCP(tLista list, TColaCP datos) {
     TCiudad ciudad;
     TEntrada entrada;
     tPosicion aux;
-    float clave;
 
     aux = list;
     while (siguiente(aux, list) != NULL) {
         ciudad = (TCiudad) recuperar(aux, list);
-        clave = calcular_distancia(ciudad->pos_x, ciudad->pos_y);
-        entrada = crear_entrada((int) clave, ciudad); //no puedo pasar un float :(
+        entrada = crear_entrada(ciudad, 1, 1);
         cp_insertar(datos, entrada);
         aux = siguiente(aux, list);
     }
 }
 
-float calcular_distancia(float x, float y) {
+/**
+    * @brief Calcula la suma de el valor absoluto entre las coordenadas.
+    * @param x coordenada destino.
+    * @param y coordenada destino.
+    * @param cord_x origen.
+    * @param cord_y origen.
+    * @return float resultado.
+*/
+float calcular_distancia(float x, float y, float cord_x, float cord_y) {
     float dist;
-    dist = fabs(x - 1);
-    dist += fabs(y - 1);
+    dist = fabs(x - cord_x);
+    dist += fabs(y - cord_y);
     return dist;
 }
-
+/**
+    *@brief Funcion de comparacion de claves de entradas.
+    *@param x entrada.
+    *@param y entrada.
+    *@return int -1 , 1 o 0.
+*/
 int ascendente(TEntrada x, TEntrada y) {
     int toReturn;
-    if(x->clave < y->clave)
+    float clave_1 = *(float*) x->clave;
+    float clave_2 = *(float*) y->clave;
+    if(clave_1 < clave_2)
         toReturn = -1;
-    else if (x->clave == y->clave) {
+    else if (clave_1 == clave_2) {
         toReturn = 0;
     }
     else
@@ -140,11 +165,19 @@ int ascendente(TEntrada x, TEntrada y) {
     return toReturn;
 }
 
+/**
+    *@brief Funcion de comparacion de claves de entradas.
+    *@param x entrada.
+    *@param y entrada.
+    *@return int -1 , 1 o 0.
+*/
 int descendente(TEntrada x, TEntrada y) {
     int toReturn;
-    if(x->clave > y->clave)
+    float clave_1 = *(float*) x->clave;
+    float clave_2 = *(float*) y->clave;
+    if(clave_1 > clave_2)
         toReturn = -1;
-    else if (x->clave == y->clave) {
+    else if (clave_1 == clave_2) {
         toReturn = 0;
     }
     else
@@ -152,6 +185,10 @@ int descendente(TEntrada x, TEntrada y) {
     return toReturn;
 }
 
+/**
+    *@brief muestra por pantalla los nombres de las ciudades ordenadas.
+    *@param datos Cola con prioridad.
+*/
 void mostrar_Ciudades(TColaCP datos) {
     TEntrada aux;
     TCiudad ciudad;
@@ -165,26 +202,29 @@ void mostrar_Ciudades(TColaCP datos) {
     }
 }
 
+/**
+    *@brief  calcula y muestra por pantalla las ciudades de la cola que forman la distancia del camino mas corto.
+    *@param datos Cola con prioridad.
+*/
 void camino_mas_corto(TColaCP datos) {
     TColaCP colaAux;
     TCiudad ciudadAux;
     TEntrada entradaAux;
-    int cord_x;
-    int cord_y;
-    int clave;
+    float cord_x;
+    float cord_y;
+    float clave;
+    float totalDist;
     int control;
     int i;
-    int totalDist;
 
+    control = datos->cantidad_elementos;
     colaAux = crear_cola_cp(ascendente);
     entradaAux = cp_eliminar(datos);
     ciudadAux = entradaAux->valor;
     cord_x = ciudadAux->pos_x,
     cord_y = ciudadAux->pos_y;
-    control = datos->cantidad_elementos+1;
+    totalDist = *(float*) entradaAux->clave;
     i = 1;
-    totalDist = 0;
-    totalDist += (unsigned long long) entradaAux->clave;
 
     printf("%i. %s\n", i,ciudadAux->nombre);
 
@@ -194,13 +234,13 @@ void camino_mas_corto(TColaCP datos) {
             ciudadAux = entradaAux->valor;
             clave = fabs(ciudadAux->pos_x - cord_x);
             clave += fabs(ciudadAux->pos_y - cord_y);
-            cp_insertar(colaAux, crear_entrada(clave, ciudadAux));
+            cp_insertar(colaAux, crear_entrada(ciudadAux, cord_x, cord_y));
         }
         entradaAux = cp_eliminar(colaAux);
         ciudadAux = entradaAux->valor;
         cord_x = ciudadAux->pos_x,
         cord_y = ciudadAux->pos_y;
-        totalDist += (unsigned long long) entradaAux->clave;
+        totalDist += *(float*) entradaAux->clave;
         printf("%i. %s\n", i,ciudadAux->nombre);
 
         while(colaAux->cantidad_elementos > 0){
@@ -208,13 +248,36 @@ void camino_mas_corto(TColaCP datos) {
         }
         i++;
     }
-    printf("Total recorrido %i\n", totalDist);
+    printf("Total recorrido %.0f\n", totalDist);
     cp_destruir(colaAux, fEliminar);
 }
 
+/**
+    *@brief elimina una entrada en su totalidad.
+    *@param ent Entrada.
+*/
 void fEliminar(TEntrada ent){
     ent->clave= NULL;
     ent->valor= NULL;
     free(ent);
     ent= NULL;
+}
+
+/**
+    *@brief crea una entrada clave/valor, con respecto a las coordenadas origen.
+    *@param ciudad Ciudad y Coordenadas.
+    *@param cord_x coordenada origen.
+    *@param cord_y coordenada origen.
+    *@return TEntrada entrada generada.
+*/
+TEntrada crear_entrada(TCiudad ciudad, float cord_x, float cord_y) {
+    TEntrada toReturn;
+    float * dist;
+
+    toReturn = (TEntrada) malloc(sizeof(struct entrada));
+    dist = (float *) malloc(sizeof(float));
+    *dist = calcular_distancia(ciudad->pos_x, ciudad->pos_y, cord_x, cord_y);
+    toReturn->clave = dist;
+    toReturn->valor = ciudad;
+    return toReturn;
 }

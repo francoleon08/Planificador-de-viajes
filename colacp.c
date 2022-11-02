@@ -4,13 +4,22 @@
 #include "define.h"
 #include "colacp.h"
 
+//METODOS AUXILIARES
+TNodo getPadre(TColaCP cola, int pos);
+void crearTNodo(TNodo nodo, TNodo padre, TEntrada entr);
+void burbujeoInsertar(TColaCP cola, TNodo hijo, TNodo padre);
+void burbujeoEliminar(TColaCP cola, TNodo raiz);
+TNodo nodoMayorPrioridad(TColaCP cola, TNodo n1, TNodo n2);
+void removerTNodo(TColaCP cola, TNodo padre);
+
 //METODOS TDA COLA CON PRIORIDAD
+/**
+ * @brief Crea un Cola con prioridad.
+ * @param f funcion de comparacion.
+ * @return TColaCP generada.
+ */
 TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada)) {
     TColaCP cola;
-    /*
-    ASIGNO MEMORIA SUFICIENTE PARA CREAR LA COLA,
-    LUEGO AL MOMEMNTO DE DESTRUIRLA DEBO HACER FREE
-    */
     cola = (TColaCP) malloc(sizeof(struct cola_con_prioridad));
     cola->cantidad_elementos = 0;
     cola->raiz = NULL;
@@ -18,6 +27,12 @@ TColaCP crear_cola_cp(int (*f)(TEntrada, TEntrada)) {
     return cola;
 }
 
+/**
+ * @brief Insertra una entrada en la cola.
+ * @param cola cola con prioridad.
+ * @param entr entrada a insertar en la cola.
+ * @return int TRUE si se ejecuta la operacion, FALSE caso contrario.
+ */
 int cp_insertar(TColaCP cola, TEntrada entr) {
     if(cola == NULL)
         exit(CCP_NO_INI);
@@ -47,11 +62,16 @@ int cp_insertar(TColaCP cola, TEntrada entr) {
         return FALSE;
 }
 
+/**
+ * @brief Elimina la raiz de la cola HEAP.
+ * @param cola cola con prioridad.
+ * @return TEntrada entrada removida de la cola.
+ */
 TEntrada cp_eliminar(TColaCP cola) {
     if(cola == NULL)
         exit(CCP_NO_INI);
     if(cola->cantidad_elementos == 0)
-        exit(ELE_NULO);
+        exit(CCP_VACIA);
     TEntrada toReturn;
     //aux es el padre del ultimo nodo
     TNodo aux;
@@ -66,12 +86,22 @@ TEntrada cp_eliminar(TColaCP cola) {
     return toReturn;
 }
 
+/**
+ * @brief Consulta la cantidad de elementos insertados en la cola.
+ * @param cola cola con prioridad.
+ * @return int cantidad de elementos.
+ */
 int cp_cantidad(TColaCP cola) {
     if(cola == NULL)
         exit(CCP_NO_INI);
     return cola->cantidad_elementos;
 }
 
+/**
+ * @brief Remueve todas las entradas insertadas en la cola.
+ * @param cola cola con prioridad.
+ * @param fEliminar funcion para eliminar las entradas.
+ */
 void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
     if(cola == NULL)
         exit(CCP_NO_INI);
@@ -80,7 +110,7 @@ void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
     TNodo hijoD;
     if(cola->cantidad_elementos > 0){
         while (padre != cola->raiz){
-            padre=getPadre(cola, (cola->cantidad_elementos)/2);// padre es el padre del ultimo elemento ingresado.
+            padre=getPadre(cola, (cola->cantidad_elementos)/2);
             if (padre->hijo_izquierdo != NULL){
                 hijoI= padre->hijo_izquierdo;
                 fEliminar(hijoI->entrada);
@@ -98,20 +128,23 @@ void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
                 cola->cantidad_elementos--;
             }
 
-        }//al terminar nos quedaria la raiz con el hijo izquierdo y el derecho.
+        }
         fEliminar(cola->raiz->entrada);
         free(cola->raiz);
         cola->raiz= NULL;
     }
-    cola->cantidad_elementos = NULL;
     cola->comparador = NULL;
     free(cola);
     cola= NULL;
 
 }
 
-
-//METODOS AUXILIARES
+/**
+ * @brief Busca el nodo padre respecto a la posicion pos.
+ * @param cola cola con prioridad.
+ * @param pos posicion del nodo hijo.
+ * @return TNodo nodo padre.
+ */
 TNodo getPadre(TColaCP cola, int pos) {
     if(cola == NULL)
         exit(CCP_NO_INI);
@@ -127,6 +160,12 @@ TNodo getPadre(TColaCP cola, int pos) {
     }
 }
 
+/**
+ * @brief Crear un nodo.
+ * @param nodo nodo a crear.
+ * @param padre padre del nodo a crear.
+ * @param entr entrada correspondiente al nodo creado.
+ */
 void crearTNodo(TNodo nodo, TNodo padre, TEntrada entr) {
     nodo->padre = padre;
     nodo->hijo_izquierdo = NULL;
@@ -134,6 +173,12 @@ void crearTNodo(TNodo nodo, TNodo padre, TEntrada entr) {
     nodo->entrada = entr;
 }
 
+/**
+ * @brief Recorre hacia arriba la estructura HEAP de la cola, reordenando las entradas.
+ * @param cola cola con prioridad.
+ * @param hijo nodo hijo.
+ * @param padre nodo padre.
+ */
 void burbujeoInsertar(TColaCP cola, TNodo hijo, TNodo padre) {
     TEntrada aux;
     if(padre != NULL){
@@ -146,6 +191,11 @@ void burbujeoInsertar(TColaCP cola, TNodo hijo, TNodo padre) {
     }
 }
 
+/**
+ * @brief Recorre hacia abajo la estructura HEAP de la cola, reordenando las entradas.
+ * @param cola cola con prioridad.
+ * @param raiz nodo hijo.
+ */
 void burbujeoEliminar(TColaCP cola, TNodo raiz) {
     TNodo auxTNodo;
     TEntrada auxEntrada;
@@ -158,6 +208,13 @@ void burbujeoEliminar(TColaCP cola, TNodo raiz) {
     }
 }
 
+/**
+ * @brief Evalua y compara la prioridad de los nodos recibidos.
+ * @param cola cola con prioridad.
+ * @param n1 nodo a comparar.
+ * @param n2 nodo a comparar.
+ * @param TNodo nodo con mayor prioridad.
+ */
 TNodo nodoMayorPrioridad(TColaCP cola, TNodo n1, TNodo n2){
     if(n1 != NULL) {
         if( n2 != NULL){
@@ -173,6 +230,11 @@ TNodo nodoMayorPrioridad(TColaCP cola, TNodo n1, TNodo n2){
         return NULL;
 }
 
+/**
+ * @brief Remueve el hijo correspondiente al nodo recibido.
+ * @param cola cola con prioridad.
+ * @param aux nodo padre.
+ */
 void removerTNodo(TColaCP cola, TNodo aux) {
     if(cola->cantidad_elementos % 2 == 0){
         cola->raiz->entrada = aux->hijo_izquierdo->entrada;
@@ -185,12 +247,4 @@ void removerTNodo(TColaCP cola, TNodo aux) {
         aux->hijo_derecho = NULL;
     }
     cola->cantidad_elementos--;
-}
-
-TEntrada crear_entrada(TClave c, TValor v) {
-    TEntrada toReturn;
-    toReturn = (TEntrada) malloc(sizeof(struct entrada));
-    toReturn->clave = c;
-    toReturn->valor = v;
-    return toReturn;
 }
