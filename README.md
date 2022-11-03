@@ -5,14 +5,14 @@ Proceso de instalación 💻
 Al momento de ejecutar el programa se eben seguir una serie de pasos:
   1. Ejecutar la consola en el directorio donde se encuentre el programa.
   2. Ingresar la siguiente línea de comandos, donde gcc es el compilador utilizado, los archivos con extensión .c son los módulos de código y Planificador.exe es el nombre del programa. Si lo desea, puede cambiar el nombre del programa. gcc -o Planificador.exe planificador.c colacp.c Lista.c
-  3. Una vez compilado el código anterior, se generará un ejecutable Planificador.exe correspondiente al programa en cuestión.
+  3. Una vez compilado el código anterior, se generará un ejecutable Planificador.exe correspondiente al programa en cuestión.  
 Es fundamental para llevar a cabo la instalación contar con los servicios del compilador GCC, de lo contrario producirá un error.
 
 Para invocar Planificador.exe se hace uso de la consola con la siguiente invocación: /.Planificador.exe “archivo.txt”
 
 Formato del documento📄  
-[nombre de la cuidad];[coordenada x];[coordenada y]
-EJ:
+[nombre de la cuidad];[coordenada x];[coordenada y]  
+EJ:  
 Buenos Aires;123;450
 Rosario;100;52
 La Plata;900;423
@@ -21,7 +21,7 @@ Construido con 🛠️
 C
 
 Autores ✒️  
-Franco Leon - Desarrollador
+Franco Leon - Desarrollador  
 Aguistín Vera - Desarrollador
 
 Proyecto acadéico realizado para la materia Organizacion de Computadoras, Universidad Nacional del Sur, Bahía Blanca.
