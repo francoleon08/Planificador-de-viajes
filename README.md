@@ -13,9 +13,9 @@ Para invocar Planificador.exe se hace uso de la consola con la siguiente invocac
 Formato del documento📄  
 [nombre de la cuidad];[coordenada x];[coordenada y]  
 EJ:  
-Buenos Aires;123;450
-Rosario;100;52
-La Plata;900;423
+Buenos Aires;123;450  
+Rosario;100;52  
+La Plata;900;423  
 
 Construido con 🛠️  
 C
