@@ -109,12 +109,12 @@ void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
     TNodo hijoI;
     TNodo hijoD;
     if(cola->cantidad_elementos > 0){
+        padre = getPadre(cola, (cola->cantidad_elementos)/2);
         while (padre != cola->raiz){
-            padre=getPadre(cola, (cola->cantidad_elementos)/2);
             if (padre->hijo_izquierdo != NULL){
-                hijoI= padre->hijo_izquierdo;
+                hijoI = padre->hijo_izquierdo;
                 fEliminar(hijoI->entrada);
-                hijoI= NULL;
+                hijoI = NULL;
                 free(hijoI);
                 padre->hijo_izquierdo = NULL;
                 cola->cantidad_elementos--;
@@ -122,21 +122,22 @@ void cp_destruir(TColaCP cola, void (*fEliminar)(TEntrada)) {
             if (padre->hijo_derecho != NULL){
                 hijoD= padre->hijo_derecho;
                 fEliminar(hijoD->entrada);
-                hijoD= NULL;
+                hijoD = NULL;
                 free(hijoD);
                 padre->hijo_derecho = NULL;
                 cola->cantidad_elementos--;
             }
-
+            padre = getPadre(cola, (cola->cantidad_elementos)/2);
         }
-        fEliminar(cola->raiz->entrada);
-        free(cola->raiz);
-        cola->raiz= NULL;
+        if(padre != NULL) {
+            fEliminar(cola->raiz->entrada);
+            free(cola->raiz);
+            cola->raiz = NULL;
+        }
     }
     cola->comparador = NULL;
     free(cola);
-    cola= NULL;
-
+    cola = NULL;
 }
 
 /**

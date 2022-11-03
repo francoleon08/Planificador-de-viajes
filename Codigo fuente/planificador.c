@@ -23,14 +23,12 @@ int main(int argc, char * argv[]) {
     TColaCP colaDescendente;
     tLista listaDatos;
     int control;
-    /*
+
     viajes = fopen(argv[1], "r");
     if(viajes == NULL) {
         printf("Error en la carga de datos");
         exit(FALSE);
     }
-    */
-    viajes = fopen("viajes.txt", "r");
 
     crearListaVacia(&listaDatos);
     ingresar_datos_lista(viajes, &listaDatos);
